@@ -6,31 +6,49 @@
 /*   By: analaphi <analaphi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:35:25 by analaphi          #+#    #+#             */
-/*   Updated: 2026/02/03 10:33:31 by analaphi         ###   ########.fr       */
+/*   Updated: 2026/02/03 14:07:03 by analaphi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	send_byte(unsigned char c, pid_t pid)
+void	send_bytes(pid_t pid, char c)
 {
-	
-}
+	int	bit;
 
-int	send_string(char *str, pid_t pid)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
+	bit = 0;
+	while (bit < 8)
 	{
-		send_byte((unsigned char)str[i], pid);
-		i++;
+		if ((c & (0x01 << bit)) != 0)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep(100);
+		bit++;
 	}
-	send_byte(0, pid);
 }
 
 int	main(int ac, char **av)
 {
-	
+	pid_t	pid;
+	int		i;
+
+	i = 0;
+	if (ac == 3)
+	{
+		pid = ft_atoi(av[1]);
+		while (av[2][i])
+		{
+			send_bytes(pid, av[2][i]);
+			i++;
+		}
+		send_bytes(pid, '\n');
+	}
+	else
+	{
+		ft_printf("\e[0;31mERROR ! You must execute the code in this format :\n");
+		ft_printf("\e[0;34m./client <PID> <MESSAGE>\n");
+		return (1);
+	}
+	return (0);
 }
