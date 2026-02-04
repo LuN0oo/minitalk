@@ -13,3 +13,4 @@ When this is done, you can execute the client in the other terminal with **./cli
 
 ## Ressources
 
+I searched many sources on the web since this topic was totally new to me, so i pass all the wikipedia pages with all the terms i didn't know about, but there's two that really helped me : One on the different [UNIX Signals](https://www.linuxtricks.fr/wiki/signaux-unix-unix-signals) and obviously the [gitbook page of minitalk](https://42-cursus.gitbook.io/guide/2-rank-02/minitalk/understand-minitalk), with explanation on how the project is supposed to look and some information on how to succeed.
