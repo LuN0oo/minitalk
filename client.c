@@ -6,7 +6,7 @@
 /*   By: analaphi <analaphi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:35:25 by analaphi          #+#    #+#             */
-/*   Updated: 2026/02/03 14:07:03 by analaphi         ###   ########.fr       */
+/*   Updated: 2026/02/06 13:58:38 by analaphi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	send_bytes(pid_t pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(100);
+		usleep(100); 
 		bit++;
 	}
 }
@@ -37,6 +37,8 @@ int	main(int ac, char **av)
 	if (ac == 3)
 	{
 		pid = ft_atoi(av[1]);
+		if (pid < 0)
+			return (1);
 		while (av[2][i])
 		{
 			send_bytes(pid, av[2][i]);
